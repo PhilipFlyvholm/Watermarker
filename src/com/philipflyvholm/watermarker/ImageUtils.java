@@ -18,9 +18,11 @@ public class ImageUtils {
         return ImageIO.read(file);
     }
 
+    @Deprecated
     public static Map<File, BufferedImage> getImages(File directoryPath){
         //File directoryPath = new File(basePath + folderPath);
         Map<File, BufferedImage> images = new HashMap<>();
+        
         for(File file : Objects.requireNonNull(directoryPath.listFiles())){
             String fileName = file.getName();
 

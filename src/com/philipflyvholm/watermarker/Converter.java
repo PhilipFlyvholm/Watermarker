@@ -1,7 +1,6 @@
 package com.philipflyvholm.watermarker;
 
 import java.awt.image.BufferedImage;
-import java.io.*;
 
 public class Converter {
 
@@ -9,12 +8,15 @@ public class Converter {
     private final BufferedImage watermark;
 
     private boolean isConverted;
-    private final int margin = 200;
+    private final int margin;
+    private final double weight;
 
-    public Converter(BufferedImage image, BufferedImage watermark){
+    public Converter(BufferedImage image, BufferedImage watermark, double opacity, int margin){
         this.image = image;
         this.watermark = watermark;
         this.isConverted = false;
+        this.weight = opacity;
+        this.margin = margin;
     }
 
 
@@ -28,7 +30,7 @@ public class Converter {
         int watermarkX = 0;
         int watermarkY = 0;
         int timesDisplayed = 0;
-        for(int x = watermarkWidth/2; x < width; x++){
+        for(int x = margin/2; x < width; x++){
 
             if(watermarkX >= watermarkWidth){
                 watermarkX = 0;
@@ -40,7 +42,7 @@ public class Converter {
             //int watermarkX = (int) ((int) (x-(Math.floor(timesDisplayed)*watermarkWidth)));
 
             if(watermarkX > 0){
-                for(int y = watermarkHeight/2; y < height; y++){
+                for(int y = margin/2; y < height; y++){
                     if(watermarkY >= watermarkHeight){
                         watermarkY = 0;
                         y += (margin);
@@ -65,7 +67,7 @@ public class Converter {
 
                     /*Color watermarkColor = watermarkPixel.toColor();
                     int rgb = watermarkColor.getRGB() | imageColor.getRGB();*/
-                        imagePixel.blend(watermarkPixel, 0.5);
+                        imagePixel.blend(watermarkPixel, weight);
                         image.setRGB(x,y, imagePixel.toColor().getRGB());
                     }
 
