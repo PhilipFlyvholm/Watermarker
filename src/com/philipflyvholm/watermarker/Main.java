@@ -11,9 +11,11 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Starting program");
+
         /* - ON SHUTDOWN - */
         Runtime.getRuntime().addShutdownHook(new Thread(() -> System.out.println("Program stopped")));
 
+        //TODO: ADD A BETTER SETTINGS FUNCTION
         String[] watermarkSrc = new String[]{"watermark.png"};
         double opacity = 0.3;
         int margin = 5;
@@ -57,6 +59,7 @@ public class Main {
                 }
             }
         }
+
         String basePath = ImageUtils.getBasePath();
         System.out.println("Current basepath: " + basePath);
         File inputFolder = getFolder(basePath, "input");
@@ -108,10 +111,10 @@ public class Main {
                 String nameWithoutFormat = imageName.substring(0, imageName.lastIndexOf("."));
                 String format = ImageUtils.getFormat(imageName);
                 String newImageName = nameWithoutFormat + (watermarkSrc.length > 1 ? "[" + watermark +"]." : ".") + format;
-                File outputFile = new File(outputFolder.getPath() + newImageName);
+                File outputFile = new File(outputFolder.getPath() + "/" + newImageName);
                 while (outputFile.exists()){
                     newImageName = nameWithoutFormat + (watermarkSrc.length > 1 ? "[" + watermark +"]" : "") + "(" + i + ")." + format;
-                    outputFile = new File(outputFolder.getPath() + newImageName);
+                    outputFile = new File(outputFolder.getPath() + "/"  + newImageName);
                     i++;
                 }
                 try {

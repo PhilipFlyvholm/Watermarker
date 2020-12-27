@@ -27,14 +27,14 @@ public class Converter {
         int watermarkWidth = watermark.getWidth();
         int watermarkHeight = watermark.getHeight();
 
-        int watermarkX = 0;
-        int watermarkY = 0;
+        int watermarkX = watermarkWidth/2;
+        int watermarkY = watermarkHeight/2;
         int timesDisplayed = 0;
         for(int x = margin/2; x < width; x++){
 
             if(watermarkX >= watermarkWidth){
                 watermarkX = 0;
-                watermarkY = 0;
+                watermarkY = watermarkHeight/2;
                 timesDisplayed++;
                 x += (margin);
                 continue;
@@ -42,6 +42,7 @@ public class Converter {
             //int watermarkX = (int) ((int) (x-(Math.floor(timesDisplayed)*watermarkWidth)));
 
             if(watermarkX > 0){
+
                 for(int y = margin/2; y < height; y++){
                     if(watermarkY >= watermarkHeight){
                         watermarkY = 0;
